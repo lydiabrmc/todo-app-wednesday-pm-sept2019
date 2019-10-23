@@ -17,18 +17,35 @@ class App extends Component {
     ]
   }
   render() {
+    const completedTasks = this.state.tasks.filter(task => {
+      // if (task.completed === true) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+      return task.completed;
+    });
+
+    const inCompleteTasks = this.state.tasks.filter(task => {
+      return task.completed ? false : true;
+      
+      // return !task.completed;
+    });
+
     return (
       <div className="container">
         <Header />
         <AddItem />
         <ItemCount count={this.state.tasks.length} />
-        {this.state.tasks.map(task => {
+        <h3>Tasks left to complete</h3>
+        {inCompleteTasks.map(task => {
           return <Item text={task.text} completed={task.completed} key={task.id}/>
         })}
-
-        
-        <Item text="brush the cat" completed={false} />
-      </div>
+        <h3>Complete Tasks</h3>
+        {completedTasks.map(task => {
+          return <Item text={task.text} completed={task.completed} key={task.id}/>
+        })}
+              </div>
     );
   }
 }
